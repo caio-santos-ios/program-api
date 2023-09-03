@@ -1,6 +1,6 @@
 # program-api
 
 
-## ROTAS DE USUÁRIO
-## POST
-## GET
+ROTAS DE USUÁRIO
+POST
+GET
