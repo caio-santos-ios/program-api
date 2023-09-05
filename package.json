@@ -5,9 +5,12 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "ts-node-dev --cls --rs --ignore-watch node_modules src/server.ts",
-    "start": "ts-node-dev src/server.ts",
-    "typeorm": "typeorm-ts-node-commonjs"
+    "dev": "ts-node-dev --cls --rs --ignore-watch node_modules ./src/server.ts",
+    "typeorm": "typeorm-ts-node-commonjs",
+    "typeorm:generate": "typeorm-ts-node-commonjs migration:generate -d src/data-source",
+    "typeorm:run": "typeorm-ts-node-commonjs migration:run -d src/data-source",
+    "build": "rm -rf ./src && tsc",
+    "start": "ts-node-dev ./src/server.ts"
   },
   "keywords": [],
   "author": "",
