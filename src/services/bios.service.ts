@@ -19,7 +19,22 @@ const read = async (): Promise<Bios[]> => {
     return bios
 }
 
-const update = async (payload: any, updataPayload: any): Promise<Bios> => {
+const retrive = async (id: number) => {
+    const bios = await biosRepository.findOne({
+        relations: {
+            user: true
+        },
+        where: {
+            id
+        }
+    })
+
+    return bios
+}
+
+const update = async (payload: any, updataPayload: any): Promise<any> => {
+    console.log(payload)
+    console.log(updataPayload)
     const bios = await biosRepository.save({...payload, ...updataPayload})
 
     return bios
@@ -31,4 +46,4 @@ const destroy = async (payload: any): Promise<any> => {
     return bios
 }
 
-export default { create, read, update, destroy }
+export default { create, read, retrive, update, destroy }

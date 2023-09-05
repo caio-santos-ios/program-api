@@ -1,8 +1,13 @@
 import { User } from "../entities/user.entity";
 import { userRepository } from "../repositories";
 import { TuserResult, TuserUpdate } from "../interfaces/user.interface";
+import * as fs from 'fs/promises';
 
 const create = async (payload: User): Promise<User> => {
+    const photoBuffer = await fs.readFile(payload.photo);
+
+    payload.photo = photoBuffer
+
     const user = userRepository.create(payload)
 
     await userRepository.save(user)
@@ -11,14 +16,22 @@ const create = async (payload: User): Promise<User> => {
 }
 
 const read = async (): Promise<User[]> => {
-    const users = await userRepository.find({
+    const users = await userRepository.find()
+
+    return users
+}
+
+const retrive = async (id: string): Promise<User> => {
+    const user = await userRepository.findOne({
         relations: {
-            bios: true,
-            post: true
+            bios: true
+        },
+        where: {
+            id: Number(id)
         }
     })
 
-    return users
+    return user!
 }
 
 const update = async (payload: any, updataPayload: any): Promise<User> => {
@@ -33,4 +46,4 @@ const destroy = async (payload: any): Promise<any> => {
     return user
 }
 
-export default { create, read, update, destroy }
+export default { create, read, retrive, update, destroy }

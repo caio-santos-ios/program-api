@@ -11,8 +11,14 @@ const read = async (request: Request, response: Response): Promise<Response> => 
 
     return response.status(200).json(bios)
 }
+const retrive = async (request: Request, response: Response): Promise<Response> => {
+    const bios = await biosService.retrive(Number(request.params.id))
+
+    return response.status(200).json(bios)
+}
 const update = async (request: Request, response: Response): Promise<Response> => {
-    const bios = await biosService.update(response.locals.entity, request.body)
+    
+        const bios = await biosService.update(response.locals.entity, request.body)
 
     return response.status(200).json(bios)
 }
@@ -22,4 +28,4 @@ const destroy = async (request: Request, response: Response): Promise<Response> 
     return response.status(204).json()
 }
 
-export default { create, read, update, destroy }
+export default { create, read, retrive, update, destroy }

@@ -1,6 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, ManyToMany, Column, OneToMany, BeforeInsert, BeforeUpdate } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, BeforeInsert, BeforeUpdate, OneToOne } from "typeorm";
 import { Bios } from "./bios.entity";
-import { Post } from "./post.entity";
 import { getRounds, hashSync } from "bcryptjs";
 
 @Entity('users')
@@ -17,12 +16,11 @@ class User {
     @Column()
     password: string
 
-    //essa propriedade é para ter acesso as informações do post
-    @OneToMany(() => Post, (post) => post.user)
-    post: Post[]
+    @Column('bytea', { nullable: true }) 
+    photo: Buffer
 
     //essa propriedade é para ter acesso as informações da bios
-    @ManyToMany(() => Bios, (bios) => bios.user)
+    @OneToOne(() => Bios, (bios) => bios.user, {cascade: true})
     bios: Bios[]
 
     @BeforeInsert()

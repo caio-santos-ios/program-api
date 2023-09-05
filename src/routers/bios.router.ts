@@ -7,6 +7,7 @@ const biosRouter = Router()
 
 biosRouter.post("", biosController.create)
 biosRouter.get("", biosController.read)
+biosRouter.get("/:id", biosController.retrive)
 biosRouter.patch("/:id", idExisty(biosRepository), biosController.update)
 biosRouter.delete("/:id", idExisty(biosRepository), biosController.destroy)
 
